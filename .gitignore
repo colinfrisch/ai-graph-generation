@@ -47,9 +47,10 @@ outputs/visualizations/*
 outputs/results/*
 !outputs/results/.gitkeep
 
-# Dataset cache
+# Dataset
 .cache/
 *.parquet
+datasets/
 
 # OS
 .DS_Store

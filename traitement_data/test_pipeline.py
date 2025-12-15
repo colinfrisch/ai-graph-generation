@@ -174,20 +174,21 @@ def test_pipeline():
     # Summary
     axes[1, 2].axis('off')
     summary_text = f"""
-Pipeline Test Results
+        Pipeline Test Results
 
-Type: {enrichment['graph_type']}
-Complexity: {enrichment['complexity']}
-Layout: {enrichment['layout']}
+        Type: {enrichment['graph_type']}
+        Complexity: {enrichment['complexity']}
+        Layout: {enrichment['layout']}
 
-Nodes: {enrichment['node_count']}
-Edges: {enrichment['edge_count']}
-Components: {enrichment['component_count']}
+        Nodes: {enrichment['node_count']}
+        Edges: {enrichment['edge_count']}
+        Components: {enrichment['component_count']}
 
-Graph Density: {enrichment['graph_density']:.3f}
+        Graph Density: {enrichment['graph_density']:.3f}
 
-[OK] Pipeline successful!
-"""
+        [OK] Pipeline successful!
+    """
+    
     axes[1, 2].text(0.1, 0.5, summary_text, fontsize=11, family='monospace',
                     verticalalignment='center')
     axes[1, 2].set_title('Summary')
