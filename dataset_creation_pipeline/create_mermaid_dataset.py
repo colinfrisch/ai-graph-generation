@@ -1,3 +1,4 @@
+import asyncio
 import base64
 import io
 import dotenv
@@ -5,15 +6,26 @@ import os
 
 from datasets import load_from_disk
 from datasets import Dataset
-from litellm import completion
+from litellm import acompletion
 
 
 dotenv.load_dotenv()
 
+# Limit concurrent requests to avoid rate limiting
+MAX_CONCURRENT_REQUESTS = 10
 
-def llm_request(image_base64, prompt, model="openai/gpt-5.2"):
-    """Request Anthropic with an image and prompt"""
-    resp = completion(
+
+async def llm_request(image_base64, prompt, model="openai/gpt-5.2", semaphore=None):
+    """Request LLM with an image and prompt"""
+    if semaphore:
+        async with semaphore:
+            return await _do_llm_request(image_base64, prompt, model)
+    return await _do_llm_request(image_base64, prompt, model)
+
+
+async def _do_llm_request(image_base64, prompt, model):
+    """Actual LLM request logic"""
+    resp = await acompletion(
         model=model,
         messages=[{
             "role": "user",
@@ -33,7 +45,7 @@ def llm_request(image_base64, prompt, model="openai/gpt-5.2"):
     return response_text
 
 
-def image_to_mermaid_code(image, prompt, model="openai/gpt-5.2"):
+async def image_to_mermaid_code(image, prompt, model="openai/gpt-5.2", semaphore=None):
     """Convert an image to a Mermaid code"""
 
     # Convert image to base64
@@ -43,24 +55,39 @@ def image_to_mermaid_code(image, prompt, model="openai/gpt-5.2"):
     image_base64 = base64.standard_b64encode(buffer.read()).decode("utf-8")
 
     # Request the LLM to convert the image to a Mermaid code
-    response = llm_request(image_base64, prompt, model)
+    response = await llm_request(image_base64, prompt, model, semaphore)
     
     return response
 
 
+async def process_sample(sample, prompt_template, model, semaphore):
+    """Process a single sample and return the result or None on error"""
+    try:
+        image = sample["image"]
+        caption = sample["text"]
+        prompt = prompt_template.format(caption=caption)
+        response = await image_to_mermaid_code(image, prompt, model, semaphore)
+        
+        print(response)
+        return {
+            "code": response,
+            "caption": caption,
+        }
+    except Exception as e:
+        print(f"Error processing sample: {e}")
+        return None
 
 
-def main():
+async def main():
 
     LLM_MODEL = "openai/gpt-5.2"
     PROMPT = "Provide The code for this diagram in Mermaid format. Only the code, no other text. Current caption: {caption}"
 
-
     provider = LLM_MODEL.split("/")[0].upper()
-    os.environ[f"{provider}_API_KEY"] = os.getenv(f"{provider}_API_KEY")
+    api_key = os.getenv(f"{provider}_API_KEY")
+    if api_key:
+        os.environ[f"{provider}_API_KEY"] = api_key
 
-
-    new_dataset = []
     diagrams_with_captions = load_from_disk("datasets/diagrams_with_captions")
 
     # Handle both DatasetDict (with splits) and Dataset (single split)
@@ -72,21 +99,20 @@ def main():
     print(f"Dataset columns: {dataset_split.column_names}")
     print(f"First sample keys: {dataset_split[0].keys()}")
 
-    for sample in dataset_split.select(range(min(3, len(dataset_split)))):
-        try:
-            image = sample["image"]
-            caption = sample["text"]
-            prompt = PROMPT.format(caption=caption)
-            response = image_to_mermaid_code(image, prompt, LLM_MODEL)
-            
-            print(response)
-            new_dataset.append({
-                "code": response,
-                "caption": caption,
-            })
-        except Exception as e:
-            print(f"Error processing sample: {e}")
-            continue
+    # Create semaphore to limit concurrent requests
+    semaphore = asyncio.Semaphore(MAX_CONCURRENT_REQUESTS)
+
+    # Get samples to process
+    num_samples = min(10, len(dataset_split))
+    samples = [dataset_split[i] for i in range(num_samples)]
+
+    # Process all samples concurrently
+    print(f"Processing {num_samples} samples concurrently...")
+    tasks = [process_sample(sample, PROMPT, LLM_MODEL, semaphore) for sample in samples]
+    results = await asyncio.gather(*tasks)
+
+    # Filter out None results (errors)
+    new_dataset = [r for r in results if r is not None]
 
     if new_dataset:
         diagrams_with_mermaid_codes = Dataset.from_list(new_dataset)
@@ -96,5 +122,6 @@ def main():
     else:
         print("No data to save. Check for errors above.")
 
+
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
