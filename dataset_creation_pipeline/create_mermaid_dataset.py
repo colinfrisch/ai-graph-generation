@@ -12,7 +12,7 @@ from litellm import acompletion
 dotenv.load_dotenv()
 
 # Limit concurrent requests to avoid rate limiting
-MAX_CONCURRENT_REQUESTS = 10
+MAX_CONCURRENT_REQUESTS = 50
 
 
 async def llm_request(image_base64, prompt, model="openai/gpt-5.2", semaphore=None):
@@ -103,7 +103,7 @@ async def main():
     semaphore = asyncio.Semaphore(MAX_CONCURRENT_REQUESTS)
 
     # Get samples to process
-    num_samples = min(10, len(dataset_split))
+    num_samples = len(dataset_split)
     samples = [dataset_split[i] for i in range(num_samples)]
 
     # Process all samples concurrently
