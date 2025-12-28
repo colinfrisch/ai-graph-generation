@@ -7,6 +7,7 @@ import os
 from datasets import load_from_disk
 from datasets import Dataset
 from litellm import acompletion
+from tqdm.asyncio import tqdm_asyncio
 
 
 dotenv.load_dotenv()
@@ -47,6 +48,14 @@ async def _do_llm_request(image_base64, prompt, model):
 
 async def image_to_mermaid_code(image, prompt, model="openai/gpt-5.2", semaphore=None):
     """Convert an image to a Mermaid code"""
+
+    # Convert CMYK or other modes to RGB (PNG doesn't support CMYK)
+    if image.mode in ("CMYK", "P", "LA", "PA"):
+        image = image.convert("RGB")
+    elif image.mode == "RGBA":
+        pass  # RGBA is fine for PNG
+    elif image.mode != "RGB":
+        image = image.convert("RGB")
 
     # Convert image to base64
     buffer = io.BytesIO()
@@ -109,7 +118,7 @@ async def main():
     # Process all samples concurrently
     print(f"Processing {num_samples} samples concurrently...")
     tasks = [process_sample(sample, PROMPT, LLM_MODEL, semaphore) for sample in samples]
-    results = await asyncio.gather(*tasks)
+    results = await tqdm_asyncio.gather(*tasks, desc="Creating dataset")
 
     # Filter out None results (errors)
     new_dataset = [r for r in results if r is not None]
