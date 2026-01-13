@@ -1,18 +1,20 @@
 """
-Convert the diagrams_with_mermaid_codes dataset to JSONL format
+Convert the diagrams_mermaid dataset to JSONL format for Mistral fine-tuning
 with train and validation splits.
+
+Mistral requires messages format: {"messages": [...]}
 """
 
 import json
 import os
 import random
 
-import pyarrow as pa
 import pyarrow.ipc as ipc
+
 
 def main():
     # Load the dataset from Arrow file
-    arrow_path = "datasets/diagrams_with_mermaid_codes/data-00000-of-00001.arrow"
+    arrow_path = "datasets/diagrams_mermaid/data-00000-of-00001.arrow"
     
     with open(arrow_path, "rb") as f:
         reader = ipc.open_stream(f)
@@ -20,8 +22,23 @@ def main():
     
     # Convert to Python list of dicts
     data = table.to_pydict()
-    samples = [{"code": code, "caption": caption} 
-               for code, caption in zip(data["code"], data["caption"])]
+    samples = []
+    
+    for code, caption in zip(data["code"], data["caption"]):
+        # Mistral fine-tuning format: messages array
+        sample = {
+            "messages": [
+                {
+                    "role": "user",
+                    "content": caption
+                },
+                {
+                    "role": "assistant",
+                    "content": code
+                }
+            ]
+        }
+        samples.append(sample)
     
     print(f"Loaded {len(samples)} samples")
     
@@ -37,7 +54,7 @@ def main():
     print(f"Validation samples: {len(val_data)}")
     
     # Create output directory
-    output_dir = "datasets/diagrams_mermaid_jsonl"
+    output_dir = "datasets/diagrams_mermaid/diagrams_mermaid_jsonl"
     os.makedirs(output_dir, exist_ok=True)
     
     # Save train split as JSONL
@@ -55,6 +72,10 @@ def main():
             json_line = json.dumps(sample, ensure_ascii=False)
             f.write(json_line + "\n")
     print(f"Saved validation split to {val_path}")
+    
+    # Print sample to verify format
+    print("\nSample entry format:")
+    print(json.dumps(train_data[0], indent=2, ensure_ascii=False)[:800] + "...")
     
     print(f"\nDone! JSONL files saved to {output_dir}/")
 

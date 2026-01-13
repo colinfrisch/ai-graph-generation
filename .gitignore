@@ -47,6 +47,7 @@ outputs/visualizations/*
 !outputs/visualizations/.gitkeep
 outputs/results/*
 !outputs/results/.gitkeep
+tests.md
 
 # Dataset cache
 .cache/
