@@ -52,7 +52,10 @@ tests.md
 # Dataset cache
 .cache/
 *.parquet
-datasets/
+
+# Ignore all datasets except diagrams_mermaid_filtered
+**/datasets/*
+!**/datasets/diagrams_mermaid_filtered/
 
 # OS
 .DS_Store

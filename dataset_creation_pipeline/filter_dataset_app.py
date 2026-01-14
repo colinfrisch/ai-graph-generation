@@ -40,6 +40,56 @@ def clean_mermaid_code(code: str) -> str:
     return '\n'.join(lines).strip()
 
 
+def validate_mermaid_basic(code: str) -> tuple[bool, str]:
+    """
+    Basic validation of mermaid code syntax.
+    Returns (is_valid, error_message).
+    """
+    clean_code = clean_mermaid_code(code)
+    
+    if not clean_code:
+        return False, "Empty code"
+    
+    # Valid mermaid diagram types
+    valid_starts = [
+        'graph ', 'graph\n', 'flowchart ', 'flowchart\n',
+        'sequencediagram', 'sequence diagram',
+        'classdiagram', 'class diagram',
+        'statediagram', 'state diagram',
+        'erdiagram', 'er diagram', 'entityrelationshipdiagram',
+        'journey', 'gantt', 'pie', 'gitgraph', 'mindmap',
+        'timeline', 'quadrantchart', 'xychart', 'block-beta',
+        'sankey', 'requirement', 'c4context', 'c4container', 'c4component', 'c4deployment',
+        '---', '%%'  # YAML frontmatter or comments at start
+    ]
+    
+    first_line = clean_code.split('\n')[0].strip().lower()
+    
+    # Check if starts with valid diagram type
+    has_valid_start = any(first_line.startswith(s) for s in valid_starts)
+    
+    if not has_valid_start:
+        # Check if it might be a valid type anywhere in first few lines
+        first_lines = '\n'.join(clean_code.split('\n')[:5]).lower()
+        has_valid_start = any(s in first_lines for s in valid_starts)
+    
+    if not has_valid_start:
+        return False, f"Invalid diagram type. First line: {first_line[:50]}"
+    
+    return True, ""
+
+
+@st.cache_data
+def validate_all_codes(codes: list) -> dict:
+    """Pre-validate all mermaid codes and return invalid indices."""
+    invalid_indices = {}
+    for i, code in enumerate(codes):
+        is_valid, error = validate_mermaid_basic(code)
+        if not is_valid:
+            invalid_indices[i] = error
+    return invalid_indices
+
+
 def render_mermaid(code: str, height: int = 400) -> None:
     """Render Mermaid diagram using Mermaid.js"""
     # Clean the code first
@@ -138,14 +188,39 @@ def render_mermaid(code: str, height: int = 400) -> None:
 st.markdown("""
 <style>
     .stApp { background: #1e1e2e; }
-    .block-container { padding-top: 1rem !important; padding-bottom: 0 !important; }
+    .block-container { padding-top: 2rem !important; padding-bottom: 0 !important; }
     
-    .header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
-    .title { color: #cdd6f4; font-size: 1.4rem; font-weight: 600; margin: 0; }
-    .counter { color: #a6adc8; font-size: 1rem; }
+    .header-row { 
+        display: flex; 
+        align-items: center; 
+        justify-content: space-between; 
+        margin-bottom: 0.5rem; 
+        margin-top: 0.5rem;
+        padding: 0.6rem 0;
+        border-bottom: 1px solid #313244;
+    }
+    .title { 
+        color: #cdd6f4; 
+        font-size: 1.3rem; 
+        font-weight: 600; 
+        margin: 0; 
+    }
+    .counter { 
+        color: #a6adc8; 
+        font-size: 0.95rem; 
+    }
     
-    .stats { display: flex; gap: 1rem; margin-bottom: 0.5rem; }
-    .stat { padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.85rem; }
+    .stats { 
+        display: flex; 
+        gap: 0.8rem; 
+        align-items: center;
+    }
+    .stat { 
+        padding: 0.35rem 0.7rem; 
+        border-radius: 4px; 
+        font-size: 0.85rem; 
+        font-weight: 500;
+    }
     .stat-keep { background: #1e3a29; color: #a6e3a1; }
     .stat-discard { background: #3a1e1e; color: #f38ba8; }
     .stat-remaining { background: #1e2d3a; color: #89b4fa; }
@@ -188,8 +263,8 @@ def load_dataset():
     return data["code"], data["caption"]
 
 
-def save_filtered_dataset(kept_indices, codes, captions):
-    """Save the filtered dataset."""
+def save_filtered_dataset(kept_indices, codes, captions, current_index=None, discarded_count=None):
+    """Save the filtered dataset and optionally save progress for resuming."""
     output_dir = "datasets/diagrams_mermaid_filtered"
     os.makedirs(output_dir, exist_ok=True)
     
@@ -234,7 +309,62 @@ def save_filtered_dataset(kept_indices, codes, captions):
             }
             f.write(json.dumps(sample, ensure_ascii=False) + "\n")
     
+    # Save session state for resuming (if provided)
+    if current_index is not None:
+        progress_path = os.path.join(output_dir, "progress.json")
+        progress = {
+            "current_index": current_index,
+            "kept_indices": kept_indices,
+            "discarded_count": discarded_count or 0,
+            "saved_at": datetime.now().isoformat()
+        }
+        with open(progress_path, "w") as f:
+            json.dump(progress, f, indent=2)
+    
     return output_dir, len(kept_indices)
+
+
+def load_progress(codes, captions):
+    """Load saved progress. If no progress.json exists, reconstruct from filtered dataset."""
+    output_dir = "datasets/diagrams_mermaid_filtered"
+    progress_path = os.path.join(output_dir, "progress.json")
+    
+    # First try to load explicit progress file
+    if os.path.exists(progress_path):
+        with open(progress_path, "r") as f:
+            return json.load(f)
+    
+    # No progress file - try to reconstruct from filtered dataset
+    arrow_path = os.path.join(output_dir, "data-00000-of-00001.arrow")
+    if os.path.exists(arrow_path):
+        # Load the filtered dataset to find which indices were kept
+        with open(arrow_path, "rb") as f:
+            reader = ipc.open_stream(f)
+            table = reader.read_all()
+        
+        filtered_data = table.to_pydict()
+        filtered_codes = filtered_data.get("code", [])
+        
+        if filtered_codes:
+            # Find the indices in the original dataset that match filtered items
+            kept_indices = []
+            for fc in filtered_codes:
+                for i, orig_code in enumerate(codes):
+                    if orig_code == fc and i not in kept_indices:
+                        kept_indices.append(i)
+                        break
+            
+            if kept_indices:
+                # The next index to process is after the last kept item
+                last_processed = max(kept_indices) + 1
+                return {
+                    "current_index": last_processed,
+                    "kept_indices": kept_indices,
+                    "discarded_count": last_processed - len(kept_indices),  # Estimate
+                    "saved_at": "reconstructed from filtered dataset"
+                }
+    
+    return None
 
 
 def main():
@@ -245,6 +375,12 @@ def main():
     
     total_samples = len(codes)
     
+    # Pre-validate all codes to find invalid ones
+    invalid_codes = validate_all_codes(tuple(codes))  # tuple for caching
+    
+    # Check for saved progress (pass codes/captions to reconstruct if needed)
+    saved_progress = load_progress(codes, captions)
+    
     # Initialize session state
     if "current_index" not in st.session_state:
         st.session_state.current_index = 0
@@ -254,6 +390,39 @@ def main():
         st.session_state.discarded_count = 0
     if "finished" not in st.session_state:
         st.session_state.finished = False
+    if "asked_resume" not in st.session_state:
+        st.session_state.asked_resume = False
+    if "auto_skip_invalid" not in st.session_state:
+        st.session_state.auto_skip_invalid = True
+    if "auto_discarded" not in st.session_state:
+        st.session_state.auto_discarded = 0
+    
+    # Offer to resume if saved progress exists
+    if saved_progress and not st.session_state.asked_resume and st.session_state.current_index == 0:
+        saved_idx = saved_progress.get("current_index", 0)
+        saved_kept = len(saved_progress.get("kept_indices", []))
+        saved_discarded = saved_progress.get("discarded_count", 0)
+        
+        st.markdown(f"""
+            <div style="background:#313244; padding:1rem; border-radius:8px; margin-bottom:1rem; color:#cdd6f4;">
+                <b>📌 Saved progress found!</b><br>
+                Position: {saved_idx}/{total_samples} | Kept: {saved_kept} | Discarded: {saved_discarded}
+            </div>
+        """, unsafe_allow_html=True)
+        
+        c1, c2 = st.columns(2)
+        with c1:
+            if st.button("▶️ Resume", use_container_width=True):
+                st.session_state.current_index = saved_progress["current_index"]
+                st.session_state.kept_indices = saved_progress["kept_indices"]
+                st.session_state.discarded_count = saved_progress["discarded_count"]
+                st.session_state.asked_resume = True
+                st.rerun()
+        with c2:
+            if st.button("🆕 Start Fresh", use_container_width=True):
+                st.session_state.asked_resume = True
+                st.rerun()
+        return
     
     # Check if done
     if st.session_state.finished or st.session_state.current_index >= total_samples:
@@ -261,24 +430,31 @@ def main():
         kept = len(st.session_state.kept_indices)
         discarded = st.session_state.discarded_count
         
+        auto_skipped = st.session_state.get("auto_discarded", 0)
+        auto_text = f" (auto: {auto_skipped})" if auto_skipped > 0 else ""
         st.markdown(f"""
             <div style="text-align:center; padding:2rem; color:#cdd6f4;">
                 <h2>✨ Done!</h2>
                 <p><span class="stat stat-keep">✓ Kept: {kept}</span> 
-                   <span class="stat stat-discard">✗ Discarded: {discarded}</span></p>
+                   <span class="stat stat-discard">✗ Discarded: {discarded}{auto_text}</span></p>
             </div>
         """, unsafe_allow_html=True)
         
         c1, c2, c3 = st.columns([1, 2, 1])
         with c2:
-            if st.button("💾 Save Dataset", use_container_width=True):
-                output_dir, num_saved = save_filtered_dataset(st.session_state.kept_indices, codes, captions)
+            if st.button("💾 Save Final Dataset", use_container_width=True):
+                output_dir, num_saved = save_filtered_dataset(
+                    st.session_state.kept_indices, codes, captions,
+                    st.session_state.current_index, st.session_state.discarded_count
+                )
                 st.success(f"Saved {num_saved} samples to `{output_dir}/`")
             if st.button("🔄 Restart", use_container_width=True):
                 st.session_state.current_index = 0
                 st.session_state.kept_indices = []
                 st.session_state.discarded_count = 0
                 st.session_state.finished = False
+                st.session_state.asked_resume = False
+                st.session_state.auto_discarded = 0
                 st.rerun()
         return
     
@@ -286,17 +462,40 @@ def main():
     kept = len(st.session_state.kept_indices)
     discarded = st.session_state.discarded_count
     
-    # Header: title + counter + stats (single line)
+    # Auto-skip invalid mermaid codes
+    if st.session_state.auto_skip_invalid:
+        while current < total_samples and current in invalid_codes:
+            st.session_state.discarded_count += 1
+            st.session_state.auto_discarded += 1
+            st.session_state.current_index += 1
+            current = st.session_state.current_index
+            discarded = st.session_state.discarded_count
+        
+        # Check if we've reached the end after auto-skipping
+        if current >= total_samples:
+            st.session_state.finished = True
+            st.rerun()
+    
+    # Compact header: title + stats + counter (single line)
+    auto_skipped_text = f" (auto: {st.session_state.auto_discarded})" if st.session_state.auto_discarded > 0 else ""
     st.markdown(f"""
         <div class="header-row">
-            <span class="title">Dataset Filter</span>
+            <span class="title">🔥 Dataset Filter</span>
             <span class="stats">
-                <span class="stat stat-keep">✓ {kept}</span>
-                <span class="stat stat-discard">✗ {discarded}</span>
-                <span class="stat stat-remaining">{current + 1}/{total_samples}</span>
+                <span class="stat stat-keep">✓ Kept: {kept}</span>
+                <span class="stat stat-discard">✗ Discarded: {discarded}{auto_skipped_text}</span>
+                <span class="stat stat-remaining">◎ {current + 1}/{total_samples}</span>
             </span>
         </div>
     """, unsafe_allow_html=True)
+    
+    # Toggle for auto-skip (in sidebar or small)
+    with st.expander("⚙️ Settings", expanded=False):
+        st.session_state.auto_skip_invalid = st.checkbox(
+            "Auto-skip invalid mermaid code", 
+            value=st.session_state.auto_skip_invalid
+        )
+        st.caption(f"Found {len(invalid_codes)} invalid codes in dataset")
     
     # Progress bar (thin)
     st.progress(current / total_samples)
@@ -328,7 +527,12 @@ def main():
             st.session_state.current_index += 1
             st.rerun()
     with c3:
-        if st.button("🚪 Exit", key="exit", use_container_width=True):
+        if st.button("💾 Save & Exit", key="exit", use_container_width=True):
+            # Save progress before exiting
+            save_filtered_dataset(
+                st.session_state.kept_indices, codes, captions,
+                st.session_state.current_index, st.session_state.discarded_count
+            )
             st.session_state.finished = True
             st.rerun()
     with c4:

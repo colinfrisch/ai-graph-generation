@@ -1,0 +1,12 @@
+{
+  "description": "Manually filtered Mermaid dataset - 2026-01-14T18:18:39.858278",
+  "num_samples": 197,
+  "features": {
+    "code": {
+      "dtype": "string"
+    },
+    "caption": {
+      "dtype": "string"
+    }
+  }
+}
