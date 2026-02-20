@@ -172,7 +172,18 @@ def render_mermaid(code: str, height: int = 400) -> None:
                         errorMsg = err.str;
                     }}
                     document.getElementById('mermaid-container').innerHTML = 
-                        '<div class="error"><strong>⚠️ Mermaid Syntax Error:</strong><br>' + errorMsg + '</div>';
+                        '<div class="error"><strong>⚠️ Auto-discarding...</strong><br>' + errorMsg + '</div>';
+                    
+                    // Auto-click Discard button after short delay
+                    setTimeout(() => {{
+                        const btns = window.parent.document.querySelectorAll('button');
+                        for (const btn of btns) {{
+                            if (btn.innerText.includes('Discard')) {{
+                                btn.click();
+                                break;
+                            }}
+                        }}
+                    }}, 50);
                 }}
             }}
             
