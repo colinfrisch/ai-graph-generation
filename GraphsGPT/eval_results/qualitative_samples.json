@@ -1,0 +1,202 @@
+[
+  {
+    "index": 0,
+    "caption": "Kübler-Ross Change Curve Model, Flow Diagram, elements: Five stages of emotional responses depicted horizontally: Denial, Anger, Bargaining, Depression, Acceptance, each with a corresponding facial expression and editable text description.",
+    "reference": "flowchart LR\n  D[\"Denial<br/><small>This is a sample text. You simply add your own text and description here. This text is fully editable.</small>\"]\n  A[\"Anger<br/><small>This is a sample text. You simply add your own text and description here. This text is fully editable.</small>\"]\n  B[\"Bargaining<br/><small>This is a sample text. You simply add your own text and description here. This text is fully editable.</small>\"]\n  Dep[\"Depression<br/><small>This is a sample text. You simply add your own text and description here. This text is fully editable.</small>\"]\n  Acc[\"Acceptance<br/><small>This is a sample text. You simply add your own text and description here. This text is fully editable.</small>\"]\n\n  D --> A --> B --> Dep --> Acc\n\n  classDef denial fill:#1aa9d6,stroke:#1aa9d6,color:#ffffff;\n  classDef anger fill:#1f6da8,stroke:#1f6da8,color:#ffffff;\n  classDef bargaining fill:#6e79d6,stroke:#6e79d6,color:#ffffff;\n  classDef depression fill:#e33445,stroke:#e33445,color:#ffffff;\n  classDef acceptance fill:#f58220,stroke:#f58220,color:#ffffff;\n\n  class D denial;\n  class A anger;\n  class B bargaining;\n  class Dep depression;\n  class Acc acceptance;",
+    "prediction": "flowchart LR\n  %% Kohlberg's Stages of Moral Development (Circular Flow Diagram)\n\n  subgraph P[\"Kohlberg's Stages of Moral Development\"]\n    direction LR\n\n    subgraph S[\" \"]\n      direction TB\n      S1[\"Stage 1: Obedience and Punishment Orientation\"]\n      S2[\"Stage 2: Individualism and Exchange\"]\n      S3[\"Stage 3: Social Contract and Individual Rights\"]\n      S4[\"Stage 4: Universal Ethical Principles\"]\n    end\n\n    subgraph W[\" \"]\n      direction TB\n      W1[\"Stage 1: Individualism and Exchange\"]\n      W2[\"Stage 2: Social Contract and Individual Rights\"]\n      W3[\"Stage 3: Universal Ethical Principles\"]\n      W4[\"Stage 4: Universal Ethical Principles\"]\n    end\n\n    subgraph O[\" \"]\n      direction TB\n      O1[\"Stage 1: Obedience and Punishment Orientation\"]\n      O2[\"Stage 2: Individualism and Exchange\"]\n      O3[\"Stage 3: Social Contract and Individual Rights\"]\n      O4[\"Stage 4: Universal Ethical Principles\"]\n    end\n\n    subgraph En[\" \"]\n      direction TB\n      En1[\"Stage 1: Obedience and Punishment Orientation\"]\n      En2[\"Stage 2: Individualism and Exchange\"]\n      En3[\"Stage 3: Social Contract and Individual Rights\"]\n      En4[\"Stage 4: Universal Ethical Principles\"]\n    end\n\n    subgraph Ap[\" \"]\n      direction TB\n      Ap1[\"Stage 1: Obedience and Punishment Orientation\"]\n      Ap2[\"Stage 2: Individualism and Exchange\"]\n      Ap3[\"Stage 3: Social Contract and Individual Rights\"]\n      Ap4[\"Stage",
+    "ref_syntax_score": 90.0,
+    "pred_syntax_score": 70.0,
+    "node_f1": 0.0,
+    "edge_f1": 0.0
+  },
+  {
+    "index": 1,
+    "caption": "Strategic Management Model, Network Diagram, elements: Central node labeled 'Valeur partagée' (Shared Value) connected to six surrounding nodes labeled: Strategy, Structure, Systems, Skills, Style, and Staff. Lines radiate between the central node and surrounding elements.",
+    "reference": "graph TD\n    C[\"Valeur partagée<br/>(Shared Value)\"]\n\n    STRAT[\"Strategie<br/>(Strategy)\"]\n    STRUCT[\"Structure<br/>(Structure)\"]\n    SYS[\"Systèmes<br/>(Systems)\"]\n    SKILL[\"Compétences<br/>(Skills)\"]\n    STYLE[\"Style<br/>(Style)\"]\n    STAFF[\"Équipe<br/>(Staff)\"]\n\n    C --- STRAT\n    C --- STRUCT\n    C --- SYS\n    C --- SKILL\n    C --- STYLE\n    C --- STAFF",
+    "prediction": "flowchart TB\n    SV((Shared Values))\n\n    STRAT((Strategy))\n    STRUCT((Structure))\n    SYSTEMS((Systems))\n    STYLE((Style))\n    STAFF((Staff))\n    SKILLS((Skills))\n\n    SV --- STRAT\n    SV --- STRUCT\n    SV --- SYSTEMS\n    SV --- STYLE\n    SV --- STAFF\n    SV --- SKILLS\n\n    STRAT --- STRUCT\n    STRUCT --- SYSTEMS\n    SYSTEMS --- STYLE\n    STYLE --- STAFF\n    STAFF --- SKILLS\n    SKILLS --- STRAT",
+    "ref_syntax_score": 100.0,
+    "pred_syntax_score": 100.0,
+    "node_f1": 0.5714285714285714,
+    "edge_f1": 0.0
+  },
+  {
+    "index": 2,
+    "caption": "Multiple Intelligences, Quadrant Diagram, elements: Four quadrants labeled: Naturalist, Spatial, Linguistic, and Bodily-Kinesthetic in the top two; Interpersonal, Intrapersonal, Musical, and Logical-Mathematical in the bottom two, each with brief descriptions of the intelligence types.",
+    "reference": "flowchart TB\n  %% Multiple Intelligences - Quadrant Diagram (8 wedges)\n\n  subgraph TL[ ]\n    direction LR\n    Spatial[\"**spatial**<br/>visualizing the world in 3D\"]\n    Naturalist[\"**naturalist**<br/>understanding living things and reading nature\"]\n  end\n\n  subgraph TR[ ]\n    direction LR\n    Musical[\"**musical**<br/>discerning sounds, their pitch, tone, rhythm, and timbre\"]\n    Bodily[\"**bodily-kinesthetic**<br/>coordinating your mind with your body\"]\n  end\n\n  subgraph BL[ ]\n    direction LR\n    Linguistic[\"**linguistic**<br/>finding the right words to express what you mean\"]\n    Intrapersonal[\"**intrapersonal**<br/>understanding yourself, what you feel, and what you want\"]\n  end\n\n  subgraph BR[ ]\n    direction LR\n    Interpersonal[\"**interpersonal**<br/>sensing people's feelings and motives\"]\n    Logical[\"**logical-mathematical**<br/>quantifying things, making hypotheses and proving them\"]\n  end\n\n  TL --- TR\n  TL --- BL\n  TR --- BR\n  BL --- BR\n\n  %% Styling\n  classDef spatial fill:#6E8A2D,stroke:#ffffff,stroke-width:3px,color:#ffffff;\n  classDef naturalist fill:#1F7E73,stroke:#ffffff,stroke-width:3px,color:#ffffff;\n  classDef musical fill:#2E6E78,stroke:#ffffff,stroke-width:3px,color:#ffffff;\n  classDef bodily fill:#7C1E1E,stroke:#ffffff,stroke-width:3px,color:#ffffff;\n  classDef linguistic fill:#8B3B1A,stroke:#ffffff,stroke-width:3px,color:#ffffff;\n  classDef intrapersonal fill:#A49A22,stroke:#ffffff,stroke-width:3px,color:#ffffff;\n  classDef interpersonal fill:#6E2C5B,stroke:#ffffff,stroke-width:3px,color:#ffffff;\n  classDef logical fill:#1F4F73,stroke:#ffffff,stroke-width:3px,color:#ffffff;\n\n  class Spatial spatial;\n  class Naturalist naturalist;\n  class Musical musical;\n  class Bodily bodily;\n  class Linguistic linguistic;\n  class Intrapersonal intrapersonal;\n  class Interpersonal interpersonal;\n  class Logical logical;\n\n  style TL fill:transparent,stroke:transparent\n  style TR fill:transparent,stroke:transparent\n  style BL fill:transparent,stroke:transparent\n  style BR fill:transparent,stroke:transparent",
+    "prediction": "flowchart TB\n  %% Universal Design for Learning (UDL) - Quadrant Diagram\n\n  subgraph UDL[\"Universal Design for Learning\"]\n    direction TB\n\n    subgraph ROW1[\" \"]\n      direction LR\n\n      subgraph ROW2[\" \"]\n        direction LR\n\n       subgraph ROW3[\" \"]\n        direction LR\n\n        subgraph ROW4[\" \"]\n         direction LR\n\n         subgraph ROW5[\" \"]\n          direction LR\n\n          subgraph ROW6[\" \"]\n           direction LR\n\n           subgraph ROW7[\" \"]\n             direction LR\n             subgraph ROW8[\" \"]\n               direction LR",
+    "ref_syntax_score": 100.0,
+    "pred_syntax_score": 70.0,
+    "node_f1": 0.0,
+    "edge_f1": 0.0
+  },
+  {
+    "index": 3,
+    "caption": "Kolb's Experiential Learning Cycle, Circular Flow Diagram, elements: Four colored circles labeled: Concrete Experience, Reflective Observation, Abstract Conceptualization, and Active Experimentation, with arrows indicating the flow between each step.",
+    "reference": "flowchart LR\n  CE((\"Concrete<br/>Experience<br/><span style='font-size:12px'>(Doing/having<br/>an experience)</span>\"))\n  RO((\"Reflective<br/>Observation<br/><span style='font-size:12px'>(Reviewing/reflecting<br/>on the experience)</span>\"))\n  AE((\"Active<br/>Experimentation<br/><span style='font-size:12px'>(Planning/trying out<br/>what you have learned)</span>\"))\n  AC((\"Abstract<br/>Conceptualisation<br/><span style='font-size:12px'>(Concluding/learning<br/>from the experience)</span>\"))\n\n  CE --> RO --> AE --> AC --> CE\n\n  classDef ce fill:#8BE28A,stroke:#8BE28A,color:#000,stroke-width:2px;\n  classDef ro fill:#DDE33E,stroke:#DDE33E,color:#000,stroke-width:2px;\n  classDef ae fill:#4ECBE5,stroke:#4ECBE5,color:#000,stroke-width:2px;\n  classDef ac fill:#D7A1CC,stroke:#D7A1CC,color:#000,stroke-width:2px;\n\n  class CE ce;\n  class RO ro;\n  class AE ae;\n  class AC ac;\n\n  linkStyle 0 stroke:#666,stroke-width:3px;\n  linkStyle 1 stroke:#666,stroke-width:3px;\n  linkStyle 2 stroke:#666,stroke-width:3px;\n  linkStyle 3 stroke:#666,stroke-width:3px;",
+    "prediction": "flowchart LR\n  CE[Concrete<br/>Experience] --> RO[Reflective<br/>Observation]\n  RO --> AC[Abstract<br/>Conceptualization]\n  AC --> AE[Active<br/>Experimentation]\n  AE --> CE",
+    "ref_syntax_score": 90.0,
+    "pred_syntax_score": 90.0,
+    "node_f1": 1.0,
+    "edge_f1": 0.4
+  },
+  {
+    "index": 4,
+    "caption": "Circular Flow of Economic Activity, Circular Flow Diagram, elements: Diagram showing flows between households and firms, with labeled arrows indicating money, goods and services, and factors between markets and participants.",
+    "reference": "flowchart LR\n  H[Households]\n  F[Firms]\n  MGS[Markets for goods and services]\n  FM[Factor markets]\n\n  H -- \"Money\" --> MGS\n  MGS -- \"Goods and services\" --> H\n\n  H -- \"Factors\" --> FM\n  FM -- \"Money\" --> H\n\n  F -- \"Goods and services\" --> MGS\n  MGS -- \"Money\" --> F\n\n  F -- \"Money\" --> FM\n  FM -- \"Factors\" --> F",
+    "prediction": "flowchart LR\n  %% PESTLE Analysis - Grid Diagram\n\n  subgraph PESTLE[\"PESTLE Analysis\"]\n    direction TB\n    P[Political]\n    E[Economic]\n    S[Social]\n    T[Technological]\n    En[Environmental]\n    L[Legal]\n\n    P --> E --> S --> T --> En --> L --> P\n\n    subgraph GRID[\" \"]\n     direction LR\n     P1[\"Political\"]\n     E1[\"Economic\"]\n     S1[\"Social\"]\n     T1[\"Technological\"]\n     En1[\"Environmental\"]\n     L1[\"Legal\"]\n    end\n\n    subgraph GRID2[\" \"]\n     direction LR\n     P2[\"Political\"]\n     E2[\"Economic\"]\n     S2[\"Social\"]\n     T2[\"Technological\"]\n     En2[\"Environmental\"]\n     L2[\"Legal\"]\n    end\n\n    subgraph GRID3[\" \"]\n     direction LR\n     P3[\"Political\"]\n     E3[\"Economic\"]\n     S3[\"Social\"]\n     T3[\"Technological\"]\n     En3[\"Environmental\"]\n     L3[\"Legal\"]\n    end\n\n    subgraph GRID4[\" \"]\n     direction LR\n     P4[\"Political\"]\n     E4[\"Economic\"]\n     S4[\"Social\"]\n     T4[\"Technological\"]\n     En4[\"Environmental\"]\n     L4[\"Legal\"]\n    end\n\n    subgraph GRID5[\" \"]\n     direction LR\n     P5[\"Political\"]\n     E5[\"Economic\"]\n     S5[\"Social\"]\n     T5[\"Technological\"]\n     En",
+    "ref_syntax_score": 60.0,
+    "pred_syntax_score": 90.0,
+    "node_f1": 0.0,
+    "edge_f1": 0.0
+  },
+  {
+    "index": 5,
+    "caption": "Classical Conditioning Process, Flowchart, elements: Four quadrants illustrating the stages of classical conditioning: Before Conditioning shows unconditioned stimuli and responses; During Conditioning shows the pairing of a neutral stimulus and unconditioned stimulus; After Conditioning shows the conditioned stimulus leading to a conditioned response.",
+    "reference": "flowchart TB\n\nsubgraph QC1[\"1. Before Conditioning\"]\ndirection TB\nUS1[\"Unconditioned Stimulus\\n(Food)\"] --> UR1[\"Unconditioned Response\\n(Salivation)\"]\nend\n\nsubgraph QC2[\"2. Before Conditioning\"]\ndirection TB\nNS2[\"Neutral Stimulus\\n(Whistle)\"] --> NR2[\"No Conditioned Response\\n(No Salivation)\"]\nend\n\nsubgraph QC3[\"3. During Conditioning\"]\ndirection TB\nNS3[\"Neutral Stimulus\\n(Whistle)\"] --> PLUS[\"+\"]\nUS3[\"Unconditioned Stimulus\\n(Food)\"] --> PLUS\nPLUS --> UR3[\"Unconditioned Response\\n(Salivation)\"]\nend\n\nsubgraph QC4[\"4. After Conditioning\"]\ndirection TB\nCS4[\"Conditioned Stimulus\\n(Whistle)\"] --> CR4[\"Conditioned Response\\n(Salivation)\"]\nend\n\nQC1 --- QC2\nQC3 --- QC4\nQC1 --- QC3\nQC2 --- QC4",
+    "prediction": "flowchart LR\n  %% Experiential Learning Cycle (Circular Flow Diagram)\n\n  subgraph C[Experiential Learning Cycle]\n    direction TB\n\n    subgraph R1[ ]\n      direction LR\n\n      subgraph R2[ ]\n       direction LR\n\n       subgraph R3[ ]\n        direction LR\n\n        subgraph R4[ ]\n         direction LR\n\n         subgraph R5[ ]\n          direction LR\n\n          subgraph R6[ ]\n           direction LR\n\n            subgraph R7[ ]\n              direction LR",
+    "ref_syntax_score": 100.0,
+    "pred_syntax_score": 70.0,
+    "node_f1": 0.0,
+    "edge_f1": 0.0
+  },
+  {
+    "index": 6,
+    "caption": "Learning Styles, Quadrant Diagram, elements: Circular diagram divided into four quadrants labeled: Concrete Experience (top left), Reflective Observation (top right), Abstract Conceptualization (bottom right), and Active Experimentation (bottom left).",
+    "reference": "flowchart TB\n  %% Learning Styles - Quadrant Diagram (approximated)\n  %% Layout: 2x2 grid with cross lines\n\n  subgraph TOP[ ]\n    direction LR\n    CE[\"Concrete<br/>Experience\"] --- RO[\"Reflective<br/>Observation\"]\n  end\n\n  subgraph BOTTOM[ ]\n    direction LR\n    AE[\"Active<br/>Experimentation\"] --- AC[\"Abstract<br/>Conceptualization\"]\n  end\n\n  TOP --- BOTTOM\n\n  %% Styling to resemble a quadrant diagram\n  classDef quad fill:#b9d98a,stroke:#111,stroke-width:2px,color:#000,font-weight:bold;\n\n  class CE,RO,AE,AC quad;\n\n  %% Make the outer boxes invisible; keep only quadrant nodes\n  style TOP fill:transparent,stroke:transparent\n  style BOTTOM fill:transparent,stroke:transparent\n\n  %% Thicken the cross lines\n  linkStyle 0 stroke:#111,stroke-width:3px\n  linkStyle 1 stroke:#111,stroke-width:3px\n  linkStyle 2 stroke:#111,stroke-width:3px",
+    "prediction": "flowchart TB\n  %% Kolb's Learning Styles - Quadrant Diagram (approximated)\n  subgraph Q[\"Kolb's Learning Styles\"]\n    direction TB\n\n    subgraph TopRow[\" \"]\n      direction LR\n      subgraph MidRow[\" \"]\n        direction LR\n       subgraph BottomRow[\" \"]\n        direction LR\n        subgraph RightRow[\" \"]\n         direction LR\n         subgraph LeftRow[\" \"]\n          direction LR\n         end\n      end\n\n      subgraph BottomRow[\" \"]\n        direction LR\n         subgraph RightRow[\" \"]\n           direction LR\n          end\n       end\n     end\n\n      subgraph BottomRow[\" \"]\n        direction LR\n         subgraph RightRow[\" \"]\n           direction LR\n          end\n       end\n      end\n\n       subgraph RightRow[\" \"]\n         direction LR\n          end\n       end\n      end\n\n       subgraph BottomRow[\" \"]\n        direction LR\n         subgraph LeftRow[\" \"]\n          direction LR\n         end\n       end\n      end\n\n       subgraph RightRow[\" \"]\n        direction LR\n         end\n       end",
+    "ref_syntax_score": 90.0,
+    "pred_syntax_score": 90.0,
+    "node_f1": 0.14285714285714285,
+    "edge_f1": 0.0
+  },
+  {
+    "index": 7,
+    "caption": "Behaviorism Theory, Network Diagram, elements: Three interconnected circles labeled: 'Stimulus' (with 'Provided by Instructor'), 'Response' (with 'By Learner'), and 'Reinforcement' (with 'Provided by Instructor'). A central note states 'Learning is Behavior Change'.",
+    "reference": "flowchart LR\n  S((\"Stimulus<br/><span style='font-size:12px'>Provided by Instructor</span>\")) --> R((\"Response<br/><span style='font-size:12px'>By Learner</span>\"))\n  R --> F((\"Reinforcement<br/><span style='font-size:12px'>Provided by Instructor</span>\"))\n  F --> S\n\n  N[\"Learning is<br/>Behavior Change\"]\n  N -.-> S\n  N -.-> R\n  N -.-> F",
+    "prediction": "flowchart LR\n  A[\"Behaviorist<br/>Principles\"] --> B[\"Behaviorist<br/>Principles\"]\n  B --> C[\"Behaviorist<br/>Principles\"]\n  C --> D[\"Behaviorist<br/>Principles\"]",
+    "ref_syntax_score": 90.0,
+    "pred_syntax_score": 80.0,
+    "node_f1": 0.0,
+    "edge_f1": 0.0
+  },
+  {
+    "index": 8,
+    "caption": "Software Development Life Cycle, Flow Diagram, elements: Sequential phases labeled: Analysis, Design, Development, Testing, Deployment, Maintenance, with roles listed under each phase.",
+    "reference": "flowchart LR\n  %% 6 Phases of the Software Development Life Cycle\n\n  A[\"ANALYSIS<br/><br/>• Product Owner<br/>• Project Manager<br/>• Business Analyst<br/>• CTO\"]\n  B[\"DESIGN<br/><br/>• System Architect<br/>• UX/UI designer\"]\n  C[\"DEVELOPMENT<br/><br/>• Front-end Developer<br/>• Back-end Developer\"]\n  D[\"TESTING<br/><br/>• Solutions Architect<br/>• QA Engineer<br/>• Tester<br/>• DevOps\"]\n  E[\"DEPLOYMENT<br/><br/>• Data Administrator<br/>• DevOps\"]\n  F[\"MAINTENANCE<br/><br/>• Users<br/>• Testers<br/>• Support managers\"]\n\n  A --> B --> C --> D --> E --> F\n\n  style A fill:#F2F7FF,stroke:#D7E6FF,stroke-width:1px\n  style B fill:#DDE9FF,stroke:#C8DAFF,stroke-width:1px\n  style C fill:#CFEAFF,stroke:#B8DBFF,stroke-width:1px\n  style D fill:#A9DCFF,stroke:#8FCBFF,stroke-width:1px\n  style E fill:#CFEAD7,stroke:#B6DCC2,stroke-width:1px\n  style F fill:#A8D7B2,stroke:#8CC89B,stroke-width:1px",
+    "prediction": "flowchart LR\n  %% Software Development Life Cycle - Circular Flow (approximation)\n  S1[\"1. Planning\"] --> S2[\"2. Analysis\"] --> S3[\"3. Testing\"] --> S4[\"4. Deployment\"] --> S5[\"5. Maintenance\"] --> S6[\"6. Maintenance\"] --> S7[\"7. Release\"] --> S8[\"8. Maintenance\"] --> S9[\"9. Maintenance\"] --> S10[\"10. Maintenance\"] --> S11[\"11. Maintenance\"] --> S12[\"12. Maintenance\"] --> S13[\"13. Maintenance\"] --> S14[\"14. Maintenance\"] --> S15[\"15. Maintenance\"] --> S16[\"16. Maintenance\"] --> S17[\"17. Maintenance\"] --> S18[\"18. Maintenance\"] --> S19[\"19. Maintenance\"] --> S20[\"20. Maintenance\"] --> S21[\"21. Maintenance\"] --> S22[\"22. Maintenance\"] --> S23[\"23. Maintenance\"] --> S24[\"24. Maintenance\"] --> S25[\"25. Maintenance\"] --> S26[\"26. Maintenance\"] --> S27[\"27. Maintenance\"] --> S28[\"28. Maintenance\"] --> S29[\"29. Maintenance\"] --> S30[\"30. Maintenance\"] --> S31[\"31. Maintenance\"] --> S32[\"32. Maintenance\"] --> S33[\"33. Maintenance\"] --> S34[\"34. Maintenance\"] --> S35[\"35. Maintenance\"] --> S36[\"36. Maintenance\"] --> S37[\"37. Maintenance\"] --> S38[\"38. Maintenance\"] --> S39[\"39. Maintenance\"] --> S40[\"40. Maintenance\"] --> S41[\"41. Maintenance\"] --> S42[\"42. Maintenance\"] --> S43[\"43. Maintenance\"] --> S44[\"44. Maintenance\"] --> S45[\"45. Maintenance\"] --> S46[\"46. Maintenance\"] --> S47[\"47. Maintenance\"] --> S48[\"48. Maintenance\"] --> S49[\"49. Maintenance\"] --> S50[\"50. Maintenance\"] --> S51[\"51. Maintenance\"] --> S52[\"52. Maintenance\"] --> S53[\"53. Maintenance\"] --> S54[\"54. Maintenance\"] --> S55[\"55. Maintenance\"] --> S56[\"56. Maintenance\"] --> S57[\"57. Maintenance\"] --> S58[\"57. Maintenance\"] --> S59[\"59. Maintenance\"] --> S60[\"60. Maintenance\"] --> S61",
+    "ref_syntax_score": 100.0,
+    "pred_syntax_score": 60.0,
+    "node_f1": 0.0,
+    "edge_f1": 0.0
+  },
+  {
+    "index": 9,
+    "caption": "Higher Mental Processes and Functions, Flowchart, elements: Central theme of 'Higher mental processes and functions' at the top, with arrows pointing to 'Individual's mind,' 'Tools and signs,' and 'Social and cultural sources,' illustrating interactions with thoughts, tools, and social influences.",
+    "reference": "flowchart TB\n    A[\"Higher mental processes<br/>and functions<br/><span style='font-size:0.9em'>• thought and learning</span>\"]\n\n    B[\"Individual's mind\"]\n    C[\"Tools and signs<br/><span style='font-size:0.9em'>• symbolic and psychological tools<br/>• physical tools<br/>• conceptual tools</span>\"]\n    D[\"Social and cultural sources<br/><span style='font-size:0.9em'>• interactive experiences with others and their environment</span>\"]\n    E[\"External representation\"]\n\n    A --> B\n    A --> C\n    A --> D\n\n    B <--> C\n    B <--> D\n    C <--> E\n    D <--> E",
+    "prediction": "flowchart TB\n  %% Freud's Psychosexual Stages of Development (circular-style layout)\n\n  subgraph P[\"Freud's Psychosexual Stages of Development\"]\n    direction TB\n\n    subgraph R1[\" \"]\n      direction LR\n\n      subgraph R2[\" \"]\n       direction LR\n\n       subgraph R3[\" \"]\n        direction LR\n\n        subgraph R4[\" \"]\n         direction LR\n\n         subgraph R5[\" \"]\n          direction LR\n\n          subgraph R6[\" \"]\n            direction LR\n\n           subgraph R7[\" \"]\n             direction LR\n             subgraph R8[\" \"]\n               direction LR",
+    "ref_syntax_score": 100.0,
+    "pred_syntax_score": 90.0,
+    "node_f1": 0.0,
+    "edge_f1": 0.0
+  },
+  {
+    "index": 10,
+    "caption": "Constructivist Theory, , elements: Text explaining that constructivist theory emphasizes learners as active participants in knowledge creation, with images of Jean Piaget and John Dewey, labeled as philosophers of constructivist theory.",
+    "reference": "flowchart TB\n  A[\"CONSTRUCTIVIST THEORY\"]\n\n  A --- B[\"Constructivist theory holds that learners are not passive recipients of knowledge but are more active in the process. They build on previous experience in order to make sense of what they are learning. They are more active in the creation of meaning and knowledge. This leads to a more student-centered approach in which the student guides his own learning.\"]\n\n  A --- C[\"Jean Piaget\\n(Philosopher of constructivist theory)\"]\n  A --- D[\"John Dewey\\n(Philosopher of constructivist theory)\"]\n\n  C --- E[\"Image: Jean Piaget\"]\n  D --- F[\"Image: John Dewey\"]",
+    "prediction": "flowchart TB\n    C((Constructivism))\n\n    T[Technological<br/>Knowledge]\n    E[Environmental<br/>Knowledge]\n    S[Social<br/>Knowledge]\n\n    C --> T\n    C --> E\n    C --> S\n    C --> T\n\n    T --> E\n    E --> S\n    S --> T",
+    "ref_syntax_score": 100.0,
+    "pred_syntax_score": 90.0,
+    "node_f1": 0.4,
+    "edge_f1": 0.1818181818181818
+  },
+  {
+    "index": 11,
+    "caption": "Howard Gardner's Multiple Intelligences, Concept Map, elements: Central figure (stick person) with lines pointing to eight types of intelligences labeled: Existential, Logical-mathematical, Visual-spatial, Musical, Linguistic, Interpersonal, Intrapersonal, Bodily-kinesthetic, and Naturalist.",
+    "reference": "flowchart TB\n  %% Howard Gardner's Multiple Intelligences - Concept Map\n  C((Central figure))\n\n  C --- E[Existential]\n  C --- LM[Logical-mathematical]\n  C --- VS[Visual-spatial]\n  C --- M[Musical]\n  C --- L[Linguistic]\n  C --- Inter[Interpersonal]\n  C --- Intra[Intrapersonal]\n  C --- BK[Bodily-kinesthetic]\n  C --- N[Naturalist]",
+    "prediction": "mindmap\n  root((Multiple Intelligences))\n    Musical\n    Bodily-Kinesthetic\n    Interpersonal\n    Logical-Mathematical\n    Logical-Mathematical-Mathematical-Mathematical-Mathematical-Mathematical-Mathematical-Mathematical-Mathematical-Mathematical-Mathematical-Mathematical-Mathematical-Mathematical",
+    "ref_syntax_score": 100.0,
+    "pred_syntax_score": 70.0,
+    "node_f1": 0.0,
+    "edge_f1": 0.0
+  },
+  {
+    "index": 12,
+    "caption": "Zone of Proximal Development, Circular Diagram, elements: Three concentric circles with labels: 'Can't Learn Yet' (outer), 'Can Learn with Teacher & Peers' (middle), and 'Can Learn and Do Independently' (inner), with 'Zone of Proximal Development' as the central focus.",
+    "reference": "mindmap\n  root((Zone of Proximal Development))\n    Can Learn and Do Independently\n      Can Learn with Teacher & Peers\n        Can't Learn Yet",
+    "prediction": "flowchart TB\n  %% Zone of Proximal Development (ZPD)\n\n  subgraph ZPD[\"Zone of Proximal Development\"]\n    direction TB\n\n    subgraph TopRow[\" \"]\n      direction LR\n\n      subgraph MidRow[\" \"]\n        direction LR\n\n       subgraph BottomRow[\" \"]\n        direction LR\n\n        subgraph RightRow[\" \"]\n         direction LR\n\n         subgraph LeftRow[\" \"]\n          direction LR\n\n          subgraph RightRow[\" \"]\n            direction LR\n\n           subgraph BottomRow[\" \"]\n               direction LR",
+    "ref_syntax_score": 40.0,
+    "pred_syntax_score": 70.0,
+    "node_f1": 0.0,
+    "edge_f1": 1.0
+  },
+  {
+    "index": 13,
+    "caption": "Experiential Learning Cycle, Circular Flow Diagram, elements: Circular flow with four sections labeled: 1. Concrete Experience, 2. Reflective Observation, 3. Abstract Conceptualization, 4. Active Experimentation, each connected with arrows indicating the progression.",
+    "reference": "flowchart LR\n  A1[\"1. Concrete Experience\"]\n  A2[\"2. Reflective Observation\"]\n  A3[\"3. Abstract Conceptualization\"]\n  A4[\"4. Active Experimentation\"]\n\n  A1 --> A2 --> A3 --> A4 --> A1",
+    "prediction": "flowchart LR\n  CE[Concrete<br/>Experience]\n  RO[Reflective<br/>Observation]\n  AC[Abstract<br/>Conceptualization]\n  AE[Active<br/>Experimentation]\n\n  CE --> RO --> AC --> AE --> CE",
+    "ref_syntax_score": 80.0,
+    "pred_syntax_score": 80.0,
+    "node_f1": 0.0,
+    "edge_f1": 0.0
+  },
+  {
+    "index": 14,
+    "caption": "Benefits of Agile Methodologies in Product Iteration, Circular Flow Diagram, elements: Five circular arrows labeled with benefits: 1. Increased Flexibility and Adaptability, 2. Faster Time-to-Market, 3. Improved Collaboration and Communication, 4. Enhanced Quality and Customer Satisfaction, 5. Increased Transparency and Risk Mitigation.",
+    "reference": "flowchart LR\n  A[\"1. Increased Flexibility and Adaptability\"] --> B[\"2. Faster Time-to-Market\"]\n  B --> C[\"3. Improved Collaboration and Communication\"]\n  C --> D[\"4. Enhanced Quality and Customer Satisfaction\"]\n  D --> E[\"5. Increased Transparency and Risk Mitigation\"]\n  E --> A",
+    "prediction": "flowchart LR\n  A[Analyze] --> B[Design] --> C[Develop] --> D[Implement] --> E[Evaluate] --> A\n\n  classDef analyze fill:#ffffff,stroke:#333,stroke-width:2px,color:#111;\n  classDef design fill:#ffffff,stroke:#333,stroke-width:2px,color:#111;\n  classDef develop fill:#ffffff,stroke:#333,stroke-width:2px,color:#111;\n  classDef implement fill:#ffffff,stroke:#333,stroke-width:2px,color:#111;\n\n  class A analyze;\n  class B design;\n  class C develop;\n  class D implement;\n  class E evaluate;",
+    "ref_syntax_score": 90.0,
+    "pred_syntax_score": 70.0,
+    "node_f1": 1.0,
+    "edge_f1": 0.0
+  },
+  {
+    "index": 15,
+    "caption": "Zone of Proximal Development, Line Graph, elements: Graph with X-axis labeled 'Time' and Y-axis labeled 'Skills'; two diagonal lines indicating 'Too hard' and 'Too easy', with the 'ZPD' area marked between them.",
+    "reference": "xychart-beta\n  title \"Zone of Proximal Development\"\n  x-axis \"Time\" [0, 1, 2, 3, 4, 5]\n  y-axis \"Skills\" 0 --> 10\n  line \"Too hard\" [4, 5, 6, 7, 8, 9]\n  line \"ZPD\" [3, 4, 5, 6, 7, 8]\n  line \"Too easy\" [2, 3, 4, 5, 6, 7]",
+    "prediction": "flowchart TB\n  %% Zone of Proximal Development (ZPD)\n\n  subgraph ZPD[\"Zone of Proximal Development\"]\n    direction TB\n\n    subgraph TopRow[\" \"]\n      direction LR\n      subgraph MidRow[\" \"]\n        direction LR\n       subgraph BottomRow[\" \"]\n        direction LR\n        subgraph RightRow[\" \"]\n         direction LR\n         subgraph LeftRow[\" \"]\n          direction LR\n         end\n      end\n\n      subgraph BottomRow[\" \"]\n        direction LR\n         subgraph RightRow[\" \"]\n           direction LR\n          end\n       end\n\n       subgraph RightRow[\" \"]\n          direction LR\n          end\n       end\n      end\n\n       subgraph BottomRow[\" \"]\n          direction LR\n          end\n        end\n       end\n\n        subgraph RightRow[\" \"]\n          direction LR\n          end\n        end\n       end\n\n        subgraph LeftRow[\" \"]\n          direction LR\n         end\n        end\n       end\n\n        subgraph RightRow[\" \"]\n         direction LR\n         end\n        end",
+    "ref_syntax_score": 20.0,
+    "pred_syntax_score": 70.0,
+    "node_f1": 0.0,
+    "edge_f1": 0.0
+  },
+  {
+    "index": 16,
+    "caption": "7 Steps to Effective Decision Making, Staircase Diagram, elements: Steps labeled sequentially from 1 to 7: 'Identify the Decision', 'Gather Information', 'Identify Alternatives', 'Weigh the Evidence', 'Choose Among Alternatives', 'Take Action', 'Review Your Decision'. Each step is represented as a stair, indicating progression.",
+    "reference": "flowchart LR\n  classDef step fill:#ffffff,stroke:#b8c2cc,stroke-width:1px,color:#0b2545,rx:6,ry:6;\n\n  s1[\"1<br/>Identify the Decision\"]:::step --> s2[\"2<br/>Gather Information\"]:::step --> s3[\"3<br/>Identify Alternatives\"]:::step --> s4[\"4<br/>Weigh the Evidence\"]:::step --> s5[\"5<br/>Choose Among Alternatives\"]:::step --> s6[\"6<br/>Take Action\"]:::step --> s7[\"7<br/>Review Your Decision\"]:::step\n\n  %% Staircase feel\n  linkStyle 0,1,2,3,4,5 stroke:#9aa6b2,stroke-width:2px\n\n  style s1 margin-top:0px\n  style s2 margin-top:20px\n  style s3 margin-top:40px\n  style s4 margin-top:60px\n  style s5 margin-top:80px\n  style s6 margin-top:100px\n  style s7 margin-top:120px",
+    "prediction": "flowchart TB\n  A[\"1. Identify the Problem\"] --> B[\"2. Identify Alternatives\"] --> C[\"3. Evaluate Alternatives\"] --> D[\"4. Choose the Best Alternative\"] --> E[\"5. Implement the Alternative\"] --> F[\"6. Evaluate the Alternative\"] --> G[\"7. Implement the Alternative\"] --> H[\"8. Review the Alternative\"] --> A",
+    "ref_syntax_score": 70.0,
+    "pred_syntax_score": 40.0,
+    "node_f1": 0.0,
+    "edge_f1": 0.0
+  },
+  {
+    "index": 17,
+    "caption": "Five Forces Model, Circular Diagram, elements: Five circles surrounding a central circle labeled 'Five Forces Model', with each surrounding circle representing a force: 'Threat of New Entrants', 'Competitive Rivalry', 'Threat of Substitutes', 'Bargaining Power of Buyers', and 'Bargaining Power of Suppliers'.",
+    "reference": "flowchart TB\n    C((Five Forces<br/>Model))\n\n    TNE((Threat of<br/>New Entrants))\n    CR((Competitive<br/>Rivalry))\n    TS((Threat of<br/>Substitutes))\n    BPB((Bargaining<br/>Power of<br/>Buyers))\n    BPS((Bargaining<br/>Power of<br/>Suppliers))\n\n    C --- TNE\n    C --- CR\n    C --- TS\n    C --- BPB\n    C --- BPS\n\n    classDef center fill:#4b4f56,stroke:#2f3338,color:#ffffff,stroke-width:2px;\n    classDef orange fill:#f28c28,stroke:#c46d1d,color:#ffffff,stroke-width:2px;\n    classDef red fill:#cf3a32,stroke:#9f2d27,color:#ffffff,stroke-width:2px;\n    classDef yellow fill:#e0c23b,stroke:#b49b2f,color:#111111,stroke-width:2px;\n    classDef green fill:#79b56d,stroke:#5a8a52,color:#111111,stroke-width:2px;\n    classDef blue fill:#2f4f73,stroke:#233a55,color:#ffffff,stroke-width:2px;\n\n    class C center;\n    class TNE orange;\n    class CR red;\n    class TS yellow;\n    class BPB green;\n    class BPS blue;",
+    "prediction": "flowchart TB\n    C((Porter's<br/>Five Forces))\n\n    N((Threat of<br/>New Entrants))\n    S((Bargaining Power<br/>of Suppliers))\n    B((Bargaining Power<br/>of Buyers))\n    T((Threat of<br/>Substitutes))\n\n    C --- N\n    C --- S\n    C --- B\n    C --- T\n    C --- N\n\n    N --- S\n    S --- B\n    B --- T\n    T --- N",
+    "ref_syntax_score": 100.0,
+    "pred_syntax_score": 100.0,
+    "node_f1": 0.1818181818181818,
+    "edge_f1": 0.0
+  },
+  {
+    "index": 18,
+    "caption": "Supply and Demand Analysis, Graph, elements: X-axis labeled 'Quantity' and Y-axis labeled 'Price'. Curves representing supply (S1, S2) and demand showing shifts. Dotted lines indicating Price (P1) and quantities (Q1, Q2). Text below explains the relationship between increasing supply and demand.",
+    "reference": "xychart-beta\n    title \"Supply and Demand Both Increasing by an Equal Amount\"\n    x-axis \"Quantity\" 0 --> 10\n    y-axis \"Price\" 0 --> 10\n\n    %% Demand shifts right (two downward-sloping curves)\n    line \"Demand (D1)\" : 1 9, 2 7.8, 3 6.7, 4 5.7, 5 4.9, 6 4.2, 7 3.6, 8 3.1, 9 2.7\n    line \"Demand (D2)\" : 2 9, 3 7.8, 4 6.7, 5 5.7, 6 4.9, 7 4.2, 8 3.6, 9 3.1, 10 2.7\n\n    %% Supply shifts right (two upward-sloping curves)\n    line \"S1\" : 1 1.8, 2 2.4, 3 3.1, 4 3.9, 5 4.8, 6 5.8, 7 6.9, 8 8.1, 9 9.4\n    line \"S2\" : 2 1.8, 3 2.4, 4 3.1, 5 3.9, 6 4.8, 7 5.8, 8 6.9, 9 8.1, 10 9.4\n\n    %% Equilibrium price line (P1) and quantity markers (Q1, Q2) as dotted guides\n    line \"P1 (dotted)\" : 0 4.8, 10 4.8\n    line \"Q1 (dotted)\" : 5 0, 5 10\n    line \"Q2 (dotted)\" : 6 0, 6 10",
+    "prediction": "xychart-beta\n  title \"Kübler-Ross Change Curve\"\n  x-axis \"Time\" [\"Shock\",\"Denial\",\"Frustration\",\"Depression\",\"Experiment\",\"Decision\",\"Integration\"]\n  y-axis \"Morale & Confidence\" 0 --> 100\n  line \"Change Curve\" [0,100,100,100,100,100,100]",
+    "ref_syntax_score": 30.0,
+    "pred_syntax_score": 30.0,
+    "node_f1": 0.1818181818181818,
+    "edge_f1": 0.0
+  },
+  {
+    "index": 19,
+    "caption": "Verbal Behavior Model, Circular Flow Diagram, elements: Four labeled components arranged in a circular flow: 'Stimulus' leads to 'Response', which prompts 'Reinforcement' before returning to 'Verbal Behavior'.",
+    "reference": "flowchart LR\n    A[Stimulus] --> B[Response]\n    B --> C[Reinforcement]\n    C --> D[Verbal Behavior]\n    D --> A",
+    "prediction": "flowchart LR\n  A[\"1. Identify the problem\"] --> B[\"2. Identify alternatives\"] --> C[\"3. Evaluate alternatives\"] --> D[\"4. Choose the best alternative\"] --> E[\"5. Implement the alternative\"] --> F[\"6. Evaluate the alternative\"] --> G[\"7. Implement the alternative\"] --> H[\"8. Evaluate the alternative\"] --> A",
+    "ref_syntax_score": 90.0,
+    "pred_syntax_score": 40.0,
+    "node_f1": 0.6666666666666666,
+    "edge_f1": 0.0
+  }
+]

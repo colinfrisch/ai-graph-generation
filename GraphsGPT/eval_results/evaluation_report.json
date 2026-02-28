@@ -1,0 +1,144 @@
+{
+  "nlp_metrics": {
+    "bleu_1": 14.672851409206721,
+    "bleu_2": 8.820412429594185,
+    "bleu_3": 5.176572120253,
+    "bleu_4": 3.383529905067316,
+    "rouge1": 21.781589759574835,
+    "rouge2": 8.816912078007729,
+    "rougeL": 19.617814531473837,
+    "chrf": 27.359993148838907
+  },
+  "syntax_metrics": {
+    "total_samples": 100,
+    "non_empty_rate": 100.0,
+    "valid_header_rate": 96.0,
+    "has_edges_rate": 77.0,
+    "avg_node_count": 9.69,
+    "avg_edge_count": 4.15,
+    "avg_syntax_score": 80.2,
+    "diagram_type_dist": {
+      "flowchart": 94,
+      "mindmap": 1,
+      "unknown": 4,
+      "graph": 1
+    }
+  },
+  "structural_metrics": {
+    "node_f1": 25.814567310813636,
+    "edge_f1": 11.81966921966922,
+    "node_precision": 28.925300412042404,
+    "node_recall": 26.642559891089302,
+    "edge_precision": 13.325000000000001,
+    "edge_recall": 12.266666666666666
+  },
+  "graph_words_metrics": {
+    "graph_words_caption_correlation": 0.4538875079133736,
+    "graph_words_caption_pvalue": 3.42429890621911e-250,
+    "graph_words_diversity": 0.3999757766723633,
+    "avg_inter_similarity": 0.6000242233276367
+  },
+  "error_analysis": {
+    "error_rates": {
+      "no_edges": 23.0,
+      "wrong_diagram_type": 8.0,
+      "truncated": 9.0,
+      "hallucinated": 7.000000000000001,
+      "missing_header": 4.0
+    },
+    "error_counts": {
+      "no_edges": 23,
+      "wrong_diagram_type": 8,
+      "truncated": 9,
+      "hallucinated": 7,
+      "missing_header": 4
+    },
+    "error_examples": {
+      "no_edges": [
+        {
+          "idx": 0,
+          "pred": "flowchart LR\n  %% Kohlberg's Stages of Moral Development (Circular Flow Diagram)\n\n  subgraph P[\"Kohlberg's Stages of Moral Development\"]\n    direction LR\n\n    subgraph S[\" \"]\n      direction TB\n      ",
+          "ref": "flowchart LR\n  D[\"Denial<br/><small>This is a sample text. You simply add your own text and description here. This text is fully editable.</small>\"]\n  A[\"Anger<br/><small>This is a sample text. You si"
+        },
+        {
+          "idx": 2,
+          "pred": "flowchart TB\n  %% Universal Design for Learning (UDL) - Quadrant Diagram\n\n  subgraph UDL[\"Universal Design for Learning\"]\n    direction TB\n\n    subgraph ROW1[\" \"]\n      direction LR\n\n      subgraph RO",
+          "ref": "flowchart TB\n  %% Multiple Intelligences - Quadrant Diagram (8 wedges)\n\n  subgraph TL[ ]\n    direction LR\n    Spatial[\"**spatial**<br/>visualizing the world in 3D\"]\n    Naturalist[\"**naturalist**<br/>"
+        },
+        {
+          "idx": 5,
+          "pred": "flowchart LR\n  %% Experiential Learning Cycle (Circular Flow Diagram)\n\n  subgraph C[Experiential Learning Cycle]\n    direction TB\n\n    subgraph R1[ ]\n      direction LR\n\n      subgraph R2[ ]\n       di",
+          "ref": "flowchart TB\n\nsubgraph QC1[\"1. Before Conditioning\"]\ndirection TB\nUS1[\"Unconditioned Stimulus\\n(Food)\"] --> UR1[\"Unconditioned Response\\n(Salivation)\"]\nend\n\nsubgraph QC2[\"2. Before Conditioning\"]\ndire"
+        }
+      ],
+      "wrong_diagram_type": [
+        {
+          "idx": 1,
+          "pred": "flowchart TB\n    SV((Shared Values))\n\n    STRAT((Strategy))\n    STRUCT((Structure))\n    SYSTEMS((Systems))\n    STYLE((Style))\n    STAFF((Staff))\n    SKILLS((Skills))\n\n    SV --- STRAT\n    SV --- STRUC",
+          "ref": "graph TD\n    C[\"Valeur partagée<br/>(Shared Value)\"]\n\n    STRAT[\"Strategie<br/>(Strategy)\"]\n    STRUCT[\"Structure<br/>(Structure)\"]\n    SYS[\"Systèmes<br/>(Systems)\"]\n    SKILL[\"Compétences<br/>(Skills"
+        },
+        {
+          "idx": 11,
+          "pred": "mindmap\n  root((Multiple Intelligences))\n    Musical\n    Bodily-Kinesthetic\n    Interpersonal\n    Logical-Mathematical\n    Logical-Mathematical-Mathematical-Mathematical-Mathematical-Mathematical-Math",
+          "ref": "flowchart TB\n  %% Howard Gardner's Multiple Intelligences - Concept Map\n  C((Central figure))\n\n  C --- E[Existential]\n  C --- LM[Logical-mathematical]\n  C --- VS[Visual-spatial]\n  C --- M[Musical]\n  C"
+        },
+        {
+          "idx": 12,
+          "pred": "flowchart TB\n  %% Zone of Proximal Development (ZPD)\n\n  subgraph ZPD[\"Zone of Proximal Development\"]\n    direction TB\n\n    subgraph TopRow[\" \"]\n      direction LR\n\n      subgraph MidRow[\" \"]\n        d",
+          "ref": "mindmap\n  root((Zone of Proximal Development))\n    Can Learn and Do Independently\n      Can Learn with Teacher & Peers\n        Can't Learn Yet"
+        }
+      ],
+      "truncated": [
+        {
+          "idx": 2,
+          "pred": "flowchart TB\n  %% Universal Design for Learning (UDL) - Quadrant Diagram\n\n  subgraph UDL[\"Universal Design for Learning\"]\n    direction TB\n\n    subgraph ROW1[\" \"]\n      direction LR\n\n      subgraph RO",
+          "ref": "flowchart TB\n  %% Multiple Intelligences - Quadrant Diagram (8 wedges)\n\n  subgraph TL[ ]\n    direction LR\n    Spatial[\"**spatial**<br/>visualizing the world in 3D\"]\n    Naturalist[\"**naturalist**<br/>"
+        },
+        {
+          "idx": 3,
+          "pred": "flowchart LR\n  CE[Concrete<br/>Experience] --> RO[Reflective<br/>Observation]\n  RO --> AC[Abstract<br/>Conceptualization]\n  AC --> AE[Active<br/>Experimentation]\n  AE --> CE",
+          "ref": "flowchart LR\n  CE((\"Concrete<br/>Experience<br/><span style='font-size:12px'>(Doing/having<br/>an experience)</span>\"))\n  RO((\"Reflective<br/>Observation<br/><span style='font-size:12px'>(Reviewing/re"
+        },
+        {
+          "idx": 38,
+          "pred": "flowchart LR\n  CE[\"Concrete<br/>Experience<br/>(Feeling)\"]\n  RO[\"Reflective<br/>Observation<br/>(Watching)\"]\n  AC[\"Abstract<br/>Conceptualization<br/>(Thinking)\"]\n  AE[\"Active<br/>Experimentation<br/>",
+          "ref": "flowchart LR\n  %% Experiential Learning Cycle (Kolb) - Circular Flow Diagram\n  %% Layout: top (CE), right (RO), bottom (AC), left (AE)\n\n  CE((Concrete<br/>Experience))\n  RO((Reflective<br/>Observation"
+        }
+      ],
+      "hallucinated": [
+        {
+          "idx": 4,
+          "pred": "flowchart LR\n  %% PESTLE Analysis - Grid Diagram\n\n  subgraph PESTLE[\"PESTLE Analysis\"]\n    direction TB\n    P[Political]\n    E[Economic]\n    S[Social]\n    T[Technological]\n    En[Environmental]\n    L[",
+          "ref": "flowchart LR\n  H[Households]\n  F[Firms]\n  MGS[Markets for goods and services]\n  FM[Factor markets]\n\n  H -- \"Money\" --> MGS\n  MGS -- \"Goods and services\" --> H\n\n  H -- \"Factors\" --> FM\n  FM -- \"Money\" "
+        },
+        {
+          "idx": 12,
+          "pred": "flowchart TB\n  %% Zone of Proximal Development (ZPD)\n\n  subgraph ZPD[\"Zone of Proximal Development\"]\n    direction TB\n\n    subgraph TopRow[\" \"]\n      direction LR\n\n      subgraph MidRow[\" \"]\n        d",
+          "ref": "mindmap\n  root((Zone of Proximal Development))\n    Can Learn and Do Independently\n      Can Learn with Teacher & Peers\n        Can't Learn Yet"
+        },
+        {
+          "idx": 15,
+          "pred": "flowchart TB\n  %% Zone of Proximal Development (ZPD)\n\n  subgraph ZPD[\"Zone of Proximal Development\"]\n    direction TB\n\n    subgraph TopRow[\" \"]\n      direction LR\n      subgraph MidRow[\" \"]\n        di",
+          "ref": "xychart-beta\n  title \"Zone of Proximal Development\"\n  x-axis \"Time\" [0, 1, 2, 3, 4, 5]\n  y-axis \"Skills\" 0 --> 10\n  line \"Too hard\" [4, 5, 6, 7, 8, 9]\n  line \"ZPD\" [3, 4, 5, 6, 7, 8]\n  line \"Too easy\""
+        }
+      ],
+      "missing_header": [
+        {
+          "idx": 18,
+          "pred": "xychart-beta\n  title \"Kübler-Ross Change Curve\"\n  x-axis \"Time\" [\"Shock\",\"Denial\",\"Frustration\",\"Depression\",\"Experiment\",\"Decision\",\"Integration\"]\n  y-axis \"Morale & Confidence\" 0 --> 100\n  line \"Cha",
+          "ref": "xychart-beta\n    title \"Supply and Demand Both Increasing by an Equal Amount\"\n    x-axis \"Quantity\" 0 --> 10\n    y-axis \"Price\" 0 --> 10\n\n    %% Demand shifts right (two downward-sloping curves)\n    l"
+        },
+        {
+          "idx": 53,
+          "pred": "xychart-beta\n  title \"Kubler-Ross Change Curve\"\n  x-axis \"Time\" [\"Shock\",\"Denial\",\"Frustration\",\"Depression\",\"Experiment\",\"Decision\",\"Integration\"]\n  y-axis \"Morale and Confidence\" 0 --> 100\n  line \"C",
+          "ref": "xychart-beta\n  title \"The Laffer Curve\"\n  x-axis \"Tax Rate\" [0, 10, 20]\n  y-axis \"Tax revenue\" 0 --> 600\n  line \"Laffer curve\" [0, 320, 500]"
+        },
+        {
+          "idx": 58,
+          "pred": "xychart-beta\n  title \"Kohlberg's Stages of Moral Development\"\n  x-axis \"Time\" [\"Shock\",\"Denial\",\"Frustration\",\"Depression\",\"Experiment\",\"Decision\",\"Integration\"]\n  y-axis \"Morale & Confidence\" 0 --> 1",
+          "ref": "flowchart LR\n  %% The change curve (stages + quotes)\n  %% Note: Mermaid can't draw a smooth curve like the image; this approximates the curve with a staged path.\n\n  subgraph CC[\"The change curve\"]\n   "
+        }
+      ]
+    }
+  }
+}
