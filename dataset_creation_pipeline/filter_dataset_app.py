@@ -13,6 +13,9 @@ import streamlit.components.v1 as components
 import pyarrow.ipc as ipc
 import pyarrow as pa
 
+# Resolve paths relative to this script's directory
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # Page config
 st.set_page_config(
     page_title="Dataset Filter",
@@ -260,7 +263,7 @@ st.markdown("""
 @st.cache_data
 def load_dataset():
     """Load the Mermaid dataset from Arrow file."""
-    arrow_path = "datasets/diagrams_mermaid/data-00000-of-00001.arrow"
+    arrow_path = os.path.join(BASE_DIR, "datasets", "diagrams_mermaid", "data-00000-of-00001.arrow")
     
     if not os.path.exists(arrow_path):
         st.error(f"Dataset not found at {arrow_path}")
@@ -276,7 +279,7 @@ def load_dataset():
 
 def save_filtered_dataset(kept_indices, codes, captions, current_index=None, discarded_count=None):
     """Save the filtered dataset and optionally save progress for resuming."""
-    output_dir = "datasets/diagrams_mermaid_filtered"
+    output_dir = os.path.join(BASE_DIR, "datasets", "diagrams_mermaid_filtered")
     os.makedirs(output_dir, exist_ok=True)
     
     # Filter the data
@@ -337,7 +340,7 @@ def save_filtered_dataset(kept_indices, codes, captions, current_index=None, dis
 
 def load_progress(codes, captions):
     """Load saved progress. If no progress.json exists, reconstruct from filtered dataset."""
-    output_dir = "datasets/diagrams_mermaid_filtered"
+    output_dir = os.path.join(BASE_DIR, "datasets", "diagrams_mermaid_filtered")
     progress_path = os.path.join(output_dir, "progress.json")
     
     # First try to load explicit progress file

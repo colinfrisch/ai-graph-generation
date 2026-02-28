@@ -60,3 +60,7 @@ tests.md
 # OS
 .DS_Store
 Thumbs.db
+
+# report
+generate_report.py
+report.docx
